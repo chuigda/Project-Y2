@@ -1,0 +1,40 @@
+.yao-list {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 8px;
+    padding: 10px;
+    border-bottom: 4px solid chartreuse;
+}
+
+.gua-name-container {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    color: chartreuse;
+    font-weight: 1000;
+    user-select: none;
+}
+
+.gua-name-sep {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.gua-name {
+    cursor: pointer;
+}
+
+.gua-name:hover {
+    text-decoration: underline;
+}
+
+.gua-name-mutated {
+    color: orange;
+    cursor: pointer;
+}
+
+.gua-name-mutated:hover {
+    text-decoration: underline;
+}

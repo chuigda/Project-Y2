@@ -1,12 +1,14 @@
 import { h } from 'tsx-dom'
 
 import './index.css'
+import { Gua } from './components/Gua'
 
 const App = () => {
    return (
       <div class="main-container">
-         <b>这是测试这是测试</b><br />
-         这是测试这是测试
+         <div class="upper-container">
+            <Gua gua={[9, 6, 9, 6, 9, 6]} />
+         </div>
       </div>
    )
 }
