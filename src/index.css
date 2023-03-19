@@ -5,6 +5,28 @@
     font-family: 'Noto Serif SC', serif;
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #7fff00 transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #7fff00;
+    border-radius: 0;
+    border: 0px solid transparent;
+}
+
 body {
     height: 95vh;
 
@@ -46,6 +68,8 @@ body {
     flex-direction: row;
     row-gap: 10px;
     border-bottom: 4px solid chartreuse;
+
+    height: 147px;
 }
 
 .upper-container > .gua {
@@ -74,4 +98,23 @@ body {
     color: chartreuse;
     font-size: 18px;
     font-weight: 1000;
+}
+
+.medium-container {
+    height: 120px;
+    padding: 8px;
+    border-bottom: 4px solid chartreuse;
+
+    overflow: auto;
+}
+
+.medium-container-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+
+    width: 100%;
+    height: 100%;
 }

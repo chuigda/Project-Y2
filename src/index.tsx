@@ -11,7 +11,7 @@ const App = () => {
             <input placeholder="在這裏寫需要測定的事件"></input>
          </div>
          <div class="upper-container">
-            <Gua gua={[9, 6, 7, 6, 7, 8]} />
+            <Gua id="gua" gua={[9, 6, 7, 6, 7, 8]} />
             <div class="upper-right-container">
                <div>
                   <span>起卦方式</span>
@@ -29,7 +29,7 @@ const App = () => {
                                 title="概率上同金錢卦，但是使用更簡單的隨機數模擬"
                   />
                </div>
-               <div>
+               <div id="mode1-line1">
                   <span>大衍筮法</span>
                   <ToggleButton text="朱子算法"
                                 id="mode1-1"
@@ -45,7 +45,7 @@ const App = () => {
                                 title="以48策而不是49策開始揲蓍，並且每一遍都掛一。該方法的概率分布更平均且與史料記載更符合"
                   />
                </div>
-               <div>
+               <div id="mode1-line2">
                   <span>分二誤差</span>
                </div>
                <div>
@@ -73,6 +73,11 @@ const App = () => {
                                 title="這個功能還沒實現，請見諒"
                   />
                </div>
+            </div>
+         </div>
+         <div class="medium-container">
+            <div class="medium-container-inner">
+               PUSHBUTTON
             </div>
          </div>
       </div>

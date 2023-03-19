@@ -5,7 +5,7 @@ import data from '../data/data'
 
 import './Gua.css'
 
-export const Gua = ({ gua }) => {
+export const Gua = ({ id, gua }) => {
    const yaoList = gua.map(yao => (
       <Yao value={yao % 2 !== 0}
            mutated={yao === 9 || yao === 6}
@@ -21,7 +21,7 @@ export const Gua = ({ gua }) => {
    }).join('')
 
    return (
-      <div class="gua">
+      <div id={id} class="gua">
          <div class="yao-list">
             { yaoList }
          </div>
