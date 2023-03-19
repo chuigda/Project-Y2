@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
    base: '',
-   plugins: [viteSingleFile()],
+   plugins: [react(), viteSingleFile()],
    build: {
       target: 'es2018',
       cssCodeSplit: false,

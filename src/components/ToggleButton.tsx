@@ -1,4 +1,4 @@
-import { h } from 'tsx-dom'
+import React from 'react'
 
 import './ToggleButton.css'
 
@@ -16,11 +16,11 @@ export const ToggleButton = ({ text, id, initStatus, disabled, title, onToggled 
    }
 
    return (
-      <div id={id} class={className} title={title}>
-         <div class="toggle-button-switch">
+      <div id={id} className={className} title={title}>
+         <div className="toggle-button-switch">
             <div />
          </div>
-         <div class="toggle-button-text">{text}</div>
+         <div className="toggle-button-text">{text}</div>
       </div>
    )
 }

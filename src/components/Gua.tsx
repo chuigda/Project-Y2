@@ -1,4 +1,4 @@
-import { h } from 'tsx-dom'
+import React from 'react'
 
 import { Yao } from './Yao'
 import data from '../data/data'
@@ -21,23 +21,23 @@ export const Gua = ({ id, gua }) => {
    }).join('')
 
    return (
-      <div id={id} class="gua">
-         <div class="yao-list">
+      <div id={id} className="gua">
+         <div className="yao-list">
             { yaoList }
          </div>
          { gua.length === 6 ?
-            <div class="gua-name-container">
-               <span class="gua-name">
+            <div className="gua-name-container">
+               <span className="gua-name">
                   { data[guaBinary]['易'].name }
                </span>
                { guaBinary !== mutatedBinary &&
                   <span>
-                     <span class="gua-name-sep">/</span>
-                     <span class="gua-name-mutated">{`${data[mutatedBinary]['易'].name}`}</span>
+                     <span className="gua-name-sep">/</span>
+                     <span className="gua-name-mutated">{`${data[mutatedBinary]['易'].name}`}</span>
                   </span>
                }
             </div> :
-            <div class="gua-name-container"> - </div>
+            <div className="gua-name-container"> - </div>
          }
       </div>
    )

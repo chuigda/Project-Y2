@@ -1,4 +1,4 @@
-import { h } from 'tsx-dom'
+import React from 'react'
 
 import './Yao.css'
 
@@ -10,5 +10,5 @@ export const Yao = ({ value, mutated }) => {
    if (mutated) {
       className += ' yao-mutated'
    }
-   return <div class={className} />
+   return <div className={className} />
 }

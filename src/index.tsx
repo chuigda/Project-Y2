@@ -1,4 +1,5 @@
-import { h } from 'tsx-dom'
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 
 import { Gua } from './components/Gua'
 import './index.css'
@@ -6,13 +7,13 @@ import {ToggleButton} from "./components/ToggleButton";
 
 const App = () => {
    return (
-      <div class="main-container">
-         <div class="event-input">
+      <div className="main-container">
+         <div className="event-input">
             <input placeholder="在這裏寫需要測定的事件"></input>
          </div>
-         <div class="upper-container">
+         <div className="upper-container">
             <Gua id="gua" gua={[9, 6, 7, 6, 7, 8]} />
-            <div class="upper-right-container">
+            <div className="upper-right-container">
                <div>
                   <span>起卦方式</span>
                   <ToggleButton text="大衍筮法"
@@ -75,8 +76,8 @@ const App = () => {
                </div>
             </div>
          </div>
-         <div class="medium-container">
-            <div class="medium-container-inner">
+         <div className="medium-container">
+            <div className="medium-container-inner">
                PUSHBUTTON
             </div>
          </div>
@@ -84,6 +85,5 @@ const App = () => {
    )
 }
 
-const body = $('body')
-body.innerHTML = ''
-body.appendChild(<App />)
+const root = createRoot($('body'))
+root.render(<App />)
