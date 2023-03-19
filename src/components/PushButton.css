@@ -22,3 +22,8 @@
     background-color: orange;
     outline-color: orange;
 }
+
+.push-button.disabled {
+    background-color: #999;
+    outline-color: #999;
+}

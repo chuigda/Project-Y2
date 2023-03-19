@@ -74,6 +74,8 @@ body {
 
 .upper-container > .gua {
     border-right: 4px solid chartreuse;
+    max-width: 120px;
+    min-width: 120px;
 }
 
 .upper-right-container {
