@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, { useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { Gua } from './components/Gua'
 import { ToggleButton } from './components/ToggleButton'
 import { PushButton } from './components/PushButton'
 import { standardCalculation } from './calculation'
+import { cnNumber } from './util/cn-name'
+import data from './data/data'
 
 import './index.css'
 
@@ -22,8 +24,97 @@ const App = () => {
    const [messages, setMessages] = useState([])
 
    const appendMessage = (indent, text) => {
-      setMessages(messages.concat([{ indent, text }]))
+      setMessages(messages => [...messages, { indent, text }])
    }
+
+   const result = useMemo(() => {
+      if (gua.length < 6) {
+         return <div>計算完成後結果會顯示在這裏</div>
+      }
+
+      const guaBinary = gua.map(yao => `${yao % 2}`).join('')
+      const mutatedBinary = gua.map(yao => {
+         switch (yao) {
+            case 6: case 7: return '1'
+            case 8: case 9: return '0'
+         }
+      }).join('')
+      const mutatedCount = gua.reduce((acc, yao) => {
+         if (yao === 6 || yao === 9) {
+            return acc + 1
+         } else {
+            return acc
+         }
+      }, 0)
+      console.log(mutatedCount)
+
+      const originalGua = data[guaBinary]
+      const mutatedGua = data[mutatedBinary]
+
+      return (
+         <div>
+            <div>
+               <span>{ `${originalGua['易'].name}卦第${cnNumber(originalGua.idx + 1)}` }</span>
+               {
+                  originalGua !== mutatedGua &&
+                  <>
+                     &nbsp;/&nbsp;
+                     <span className="mutated">{
+                        `${mutatedGua['易'].name}卦第${cnNumber(mutatedGua.idx + 1)}`
+                     }</span>
+                  </>
+               }
+            </div>
+            <div>{ `${originalGua['易'].name}：${originalGua['易'].description}` }</div>
+            { tuan && <div className="indented">{ `彖曰：${originalGua['彖'].join('')}` }</div> }
+            { xiang && <div className="indented">{ `象曰：${originalGua['象'].description}` }</div> }
+
+            {
+               originalGua !== mutatedGua &&
+               <>
+                  <div className="mutated">
+                     {`${mutatedGua['易'].name}：${mutatedGua['易'].description}`}
+                  </div>
+                  { tuan && <div className="mutated indented">{ `彖曰：${mutatedGua['彖'].join('')}` }</div> }
+                  { xiang && <div className="mutated indented">{ `象曰：${mutatedGua['象'].description}` }</div> }
+               </>
+            }
+
+            <br />
+
+            {
+               originalGua !== mutatedGua
+               && guaBinary.split('')
+                  .map((bin, idx) => {
+                     const altBin = mutatedBinary[idx]
+                     if ((mutatedCount <= 3 && bin === altBin)
+                         || (mutatedCount > 3 && bin !== altBin)) {
+                        return
+                     }
+
+                     return (
+                        <div key={`mutation-${idx}`}>
+                           <div>{ `${originalGua['易'].name}：${originalGua['易'].mutations[idx]}` }</div>
+                           { xiang && <div className="indented">{ `象曰：${originalGua['象'].description}` }</div> }
+                           <div className="mutated">{ `${mutatedGua['易'].name}：${mutatedGua['易'].mutations[idx]}` }</div>
+                           { xiang && <div className="mutated indented">{ `象曰：${mutatedGua['象'].description}` }</div> }
+                        </div>
+                     )
+                  })
+            }
+
+            {
+               originalGua['易'].mutations.length > 6 &&
+               <div className="indented">{ originalGua['易'].mutations[6] }</div>
+            }
+
+            {
+               originalGua !== mutatedGua && mutatedGua['易'].mutations.length > 6 &&
+               <div className="indented mutated">{ mutatedGua['易'].mutations[6] }</div>
+            }
+         </div>
+      )
+   }, [gua, tuan, xiang])
 
    const startCalculation = () => {
       if (!title) {
@@ -56,12 +147,14 @@ const App = () => {
                                 title="模擬周易最傳統的使用蓍草的起卦方式"
                   />
                   <ToggleButton text="金錢卦"
+                                disabled={true}
                                 state={mode === 2}
                                 onToggled={() => { !ignoreInput && setMode(2) }}
                                 title="使用銅錢替代蓍草的簡化起卦方法，陰陽概率是完全均等的"
                   />
                   <ToggleButton text="金錢卦（模擬）"
                                 state={mode === 3}
+                                disabled={true}
                                 onToggled={() => { !ignoreInput && setMode(3) }}
                                 title="概率上同金錢卦，但是使用更簡單的隨機數模擬"
                   />
@@ -157,23 +250,25 @@ const App = () => {
             </div>
          </div>
          <div className="medium-container">
-            {
-               messages.length === 0 &&
-               <div className="medium-container-inner">
-                  <PushButton text="啟動"
-                              style={{ width: 64, fontSize: 18 }}
-                              onClick={startCalculation}
-                  />
-               </div>
-            }
-            {
-               messages.length !== 0 &&
-               <div className="medium-container-content">{
-                  messages.map((msg, idx) => (
-                     <div key={`message-${idx}`}>{msg.text}</div>
-                  ))
-               }</div>
-            }
+            <div className="medium-container-inner"
+                 style={{ display: messages.length === 0 ? undefined : 'none' }}>
+               <PushButton text="啟動"
+                           style={{ width: 64, fontSize: 18 }}
+                           onClick={startCalculation}
+               />
+            </div>
+            <div style={{ display: messages.length !== 0 ? undefined : 'none' }}>{
+               messages.map((msg, idx) => (
+                  <div key={`message-${idx}`}
+                       style={{ marginLeft: `${msg.indent}em` }}
+                  >
+                     {msg.text}
+                  </div>
+               ))
+            }</div>
+         </div>
+         <div className="content-container">
+            { result }
          </div>
       </div>
    )

@@ -26,20 +26,22 @@ export const Gua = ({ id, gua }) => {
          <div className="yao-list">
             { yaoList }
          </div>
-         { gua.length === 6 ?
-            <div className="gua-name-container">
-               <span className="gua-name">
-                  { data[guaBinary]['易'].name }
+         <div className="gua-name-container"
+              style={{ display: gua.length === 6 ? undefined : 'none' }}>
+            <span className="gua-name">
+               { data[guaBinary] ? data[guaBinary]['易'].name : '' }
+            </span>
+            <span style={{ display: guaBinary !== mutatedBinary ? undefined : 'none'}}>
+               <span className="gua-name-sep">/</span>
+               <span className="gua-name-mutated">
+                  {`${data[mutatedBinary] ? data[mutatedBinary]['易'].name : ''}`}
                </span>
-               { guaBinary !== mutatedBinary &&
-                  <span>
-                     <span className="gua-name-sep">/</span>
-                     <span className="gua-name-mutated">{`${data[mutatedBinary]['易'].name}`}</span>
-                  </span>
-               }
-            </div> :
-            <div className="gua-name-container"> - </div>
-         }
+            </span>
+         </div>
+         <div className="gua-name-container"
+              style={{ display: gua.length !== 6 ? undefined : 'none' }}>
+            -
+         </div>
       </div>
    )
 }

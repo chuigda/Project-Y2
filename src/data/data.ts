@@ -6,6 +6,7 @@ function convertData() {
       const gua = data[idx]
       for (const key in gua) {
          ret[key] = gua[key]
+         ret[key].idx = parseInt(idx)
       }
    }
    return ret
