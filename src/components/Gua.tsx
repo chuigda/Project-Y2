@@ -6,8 +6,9 @@ import data from '../data/data'
 import './Gua.css'
 
 export const Gua = ({ id, gua }) => {
-   const yaoList = gua.map(yao => (
-      <Yao value={yao % 2 !== 0}
+   const yaoList = gua.map((yao, idx) => (
+      <Yao key={`yao-${idx}`}
+           value={yao % 2 !== 0}
            mutated={yao === 9 || yao === 6}
       />
    ))
@@ -19,6 +20,8 @@ export const Gua = ({ id, gua }) => {
          case 8: case 9: return '0'
       }
    }).join('')
+
+   console.log(guaBinary, mutatedBinary)
 
    return (
       <div id={id} className="gua">
