@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Yao } from './Yao'
-import data from '../data/data'
 
+import data from '../data/data'
 import './Gua.css'
 
 export const Gua = ({ id, gua }) => {

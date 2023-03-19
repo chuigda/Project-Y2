@@ -1,0 +1,24 @@
+.push-button {
+    color: black;
+    background-color: chartreuse;
+
+    border: 3px solid black;
+    outline: 3px solid chartreuse;
+
+    font-weight: 1000;
+
+    text-align: center;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.push-button:hover {
+    background-color: #ffff00;
+    outline-color: #ffff00;
+}
+
+.push-button:active {
+    background-color: orange;
+    outline-color: orange;
+}

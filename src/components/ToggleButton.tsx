@@ -2,21 +2,19 @@ import React from 'react'
 
 import './ToggleButton.css'
 
-export const statusPool = {}
-
-export const ToggleButton = ({ text, id, initStatus, disabled, title, onToggled }) => {
-   statusPool[id] = statusPool[id] || initStatus || false
+export const ToggleButton = ({ text, initStatus, disabled, title, onToggled }) => {
+   const status = initStatus || false
 
    let className = 'toggle-button'
    if (disabled) {
       className += ' disabled'
    }
-   if (statusPool[id]) {
+   if (status) {
       className += ' toggled'
    }
 
    return (
-      <div id={id} className={className} title={title}>
+      <div className={className} title={title}>
          <div className="toggle-button-switch">
             <div />
          </div>

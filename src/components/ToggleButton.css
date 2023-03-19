@@ -8,7 +8,7 @@
 
 .toggle-button-switch {
     border: 3px solid transparent;
-    outline: 3px solid #CC0000;
+    outline: 3px solid #C00;
     height: 8px;
     width: 14px;
 
@@ -16,22 +16,22 @@
 }
 
 .toggled > .toggle-button-switch {
-    outline: 3px solid #ffff00;
+    outline-color: #FF0;
 }
 
 .disabled > .toggle-button-switch {
-    outline: 3px solid #999;
+    outline-color: #999;
 }
 
 .toggle-button-switch > div {
     height: 8px;
     width: 8px;
-    background: #CC0000;
+    background: #C00;
 }
 
 .toggled > .toggle-button-switch > div {
-    background: #ffff00;
-    margin-left: 6px;
+    background: #FF0;
+    float: right;
 }
 
 .disabled > .toggle-button-switch > div {
@@ -41,11 +41,11 @@
 .toggle-button-text {
     font-size: 18px;
     font-weight: 1000;
-    color: #CC0000;
+    color: #C00;
 }
 
 .toggled > .toggle-button-text {
-    color: #ffff00;
+    color: #FF0;
 }
 
 .disabled > .toggle-button-text {
