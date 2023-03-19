@@ -25,7 +25,7 @@ export const Gua = ({ gua }) => {
          <div class="yao-list">
             { yaoList }
          </div>
-         { gua.length === 6 &&
+         { gua.length === 6 ?
             <div class="gua-name-container">
                <span class="gua-name">
                   { data[guaBinary]['易'].name }
@@ -36,7 +36,8 @@ export const Gua = ({ gua }) => {
                      <span class="gua-name-mutated">{`${data[mutatedBinary]['易'].name}`}</span>
                   </span>
                }
-            </div>
+            </div> :
+            <div class="gua-name-container"> - </div>
          }
       </div>
    )

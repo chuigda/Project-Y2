@@ -51,3 +51,27 @@ body {
 .upper-container > .gua {
     border-right: 4px solid chartreuse;
 }
+
+.upper-right-container {
+    padding-top: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+
+    width: 100%;
+    user-select: none;
+}
+
+.upper-right-container > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    column-gap: 16px;
+
+    color: chartreuse;
+    font-size: 18px;
+    font-weight: 1000;
+}

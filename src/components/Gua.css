@@ -4,6 +4,7 @@
     row-gap: 8px;
     padding: 10px;
     border-bottom: 4px solid chartreuse;
+    height: calc(8 * 5px + 8 * 6px)
 }
 
 .gua-name-container {
