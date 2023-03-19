@@ -94,9 +94,9 @@ const App = () => {
 
                      return (
                         <div key={`mutation-${idx}`}>
-                           <div>{ `${originalGua['易'].name}：${originalGua['易'].mutations[idx]}` }</div>
+                           <div>{ originalGua['易'].mutations[idx] }</div>
                            { xiang && <div className="indented">{ `象曰：${originalGua['象'].description}` }</div> }
-                           <div className="mutated">{ `${mutatedGua['易'].name}：${mutatedGua['易'].mutations[idx]}` }</div>
+                           <div className="mutated">{ mutatedGua['易'].mutations[idx] }</div>
                            { xiang && <div className="mutated indented">{ `象曰：${mutatedGua['象'].description}` }</div> }
                         </div>
                      )
@@ -105,12 +105,18 @@ const App = () => {
 
             {
                originalGua['易'].mutations.length > 6 &&
-               <div className="indented">{ originalGua['易'].mutations[6] }</div>
+               <>
+                  <div>{ originalGua['易'].mutations[6] }</div>
+                  { xiang && <div className="indented">{ `象曰：${originalGua['象'].mutations[6]}` }</div> }
+               </>
             }
 
             {
                originalGua !== mutatedGua && mutatedGua['易'].mutations.length > 6 &&
-               <div className="indented mutated">{ mutatedGua['易'].mutations[6] }</div>
+               <>
+                  <div className="mutated">{ mutatedGua['易'].mutations[6] }</div>
+                  { xiang && <div className="indented">{ `象曰：${mutatedGua['象'].mutations[6]}` }</div> }
+               </>
             }
          </div>
       )
