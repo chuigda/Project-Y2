@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            body > div {
+                display: flex;
+                flex-direction: row;
+                column-gap: 20px;
+            }
+        </style>
+        <title>Convert helper</title>
+    </head>
+    <body>
+        <div>
+            <textarea id="input" cols="60" rows="30" placeholder="输入"></textarea>
+            <textarea id="output" cols="60" rows="30" placeholder="输出" readonly></textarea>
+        </div>
+
+        <script>
+
+document.getElementById('input').addEventListener('input', () => {
+    const text = document.getElementById('input').value
+    const lines = text.split('\n')
+
+    const output = [
+        {
+            name: '',
+            description: '',
+            mutations: []
+        },
+        [],
+        {
+            description: '',
+            mutations: []
+        }
+    ]
+
+    let currentCoding = ''
+
+    let currentMode = 'JustStart'
+    for (const line of lines) {
+        const trimmed = line.trim()
+        if (trimmed === '') {
+            continue
+        }
+
+        if (trimmed.startsWith('易經：')) {
+            currentMode = 'Yijing'
+        } else if (trimmed.startsWith('彖曰：')) {
+            currentMode = 'Tuan'
+        } else if (trimmed.startsWith('象曰：')) {
+            currentMode = 'Xiang'
+        } else if (
+           currentMode === 'Yijing'
+           && '初九 九二 九三 九四 九五 上九 用九 初六 六二 六三 六四 六五 上六 用六'.indexOf(trimmed.slice(0, 2)) !== -1
+        ) {
+            output[0].mutations.push(trimmed)
+            if (trimmed[0] !== '用') {
+                if (trimmed.slice(0, 2).indexOf('九') !== -1) {
+                    currentCoding += '1'
+                } else {
+                    currentCoding += '0'
+                }
+            }
+        } else if (trimmed.indexOf('：') !== -1 && currentMode === 'Yijing') {
+            const [name, description] = trimmed.split('：')
+            output[0].name = name
+            output[0].description = description
+        } else {
+            if (currentMode === 'Tuan') {
+                output[1].push(trimmed)
+            } else if (currentMode === 'Xiang') {
+                if (!output[2].description) {
+                   output[2].description = trimmed
+                } else {
+                   output[2].mutations.push(trimmed)
+                }
+            } else if (currentMode === 'Yijing') {
+                output[0].description += trimmed
+            }
+        }
+    }
+
+    document.getElementById('output').value = JSON.stringify({
+        [currentCoding]: {
+            '易': output[0],
+            '彖': output[1],{
+      "110010": {
+         "易": {
+            "name": "節",
+            "description": "亨。苦節不可貞。",
+            "mutations": [
+               "初九：不出戶庭，无咎。",
+               "九二：不出門庭，凶。",
+               "六三：不節若，則嗟若，无咎。",
+               "六四：安節，亨。",
+               "九五：甘節，吉；往有尚。",
+               "上六：苦節，貞凶，悔亡。"
+            ]
+         },
+         "彖": [
+            "節，亨，剛柔分，而剛得中。苦節不可貞，其道窮也。說以行險，當位以節，中正以通。天地節而四時成，節以制度，不傷財，不害民。"
+         ],
+         "象": {
+            "description": "澤上有水，節；君子以制數度，議德行。",
+            "mutations": [
+               "不出戶庭，知通塞也。",
+               "不出門庭，失時極也。",
+               "不節之嗟，又誰咎也。",
+               "安節之亨，承上道也。",
+               "甘節之吉，居位中也。",
+               "苦節貞凶，其道窮也。"
+            ]
+         }
+      }
+   }
+            '象': output[2]
+        }
+    }, null, 3)
+})
+
+        </script>
+    </body>
+</html>

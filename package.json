@@ -1,0 +1,16 @@
+{
+  "name": "project-y2",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "tsx-dom": "^2.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.0",
+    "vite-plugin-singlefile": "^0.13.3"
+  }
+}
