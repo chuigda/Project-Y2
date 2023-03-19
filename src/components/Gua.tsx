@@ -21,8 +21,6 @@ export const Gua = ({ id, gua }) => {
       }
    }).join('')
 
-   console.log(guaBinary, mutatedBinary)
-
    return (
       <div id={id} className="gua">
          <div className="yao-list">

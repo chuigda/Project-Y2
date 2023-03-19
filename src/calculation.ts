@@ -8,28 +8,46 @@ export async function standardCalculation(
    algorithm: number,
    div2Err: number,
    setOutput: (output: number[]) => void,
-   log: (message: string) => void
+   log: (indent: number, message: string) => void
 ) {
-   log(`正在使用大衍筮法起卦
-\t算法：${['朱子算法', '郭雍算法', '48 策算法'][algorithm]}`
-)
+   log(0, '正在使用大衍筮法起卦')
+
+   log(2, `- 算法：${['朱子算法', '郭雍算法', '48 策算法'][algorithm]}`)
+   log(2, `- 分二誤差：${div2Err}`)
+
+   await sleep(300)
 
    const arr = []
    for (let i = 0; i < 6; i++) {
-      arr.push(await standardCalculationPiece(algorithm, div2Err))
+      log(0, `正在計算第 ${i + 1} 爻`)
+      arr.push(await standardCalculationPiece(algorithm, div2Err, log))
       setOutput([...arr])
       await sleep(500)
    }
 }
 
-async function standardCalculationPiece(algorithm: number, div2Err: number): Promise<number> {
+async function standardCalculationPiece(
+   algorithm: number,
+   div2Err: number,
+   log: (indent: number, message: string) => void
+): Promise<number> {
    let count = algorithm === 3 ? 48 : 49
+   log(2, ` - 起始策數: ${count}`)
 
    count = await standardCalculationStep(count, div2Err, true)
+   await sleep(150)
+   log(2, ` - 一變後策數：${count}`)
    count = await standardCalculationStep(count, div2Err, algorithm !== 2)
+   await sleep(150)
+   log(2, ` - 二變後策數：${count}`)
    count = await standardCalculationStep(count, div2Err, algorithm !== 2)
+   await sleep(150)
+   log(2, ` - 三變後策數：${count}`)
 
-   return count / 4
+   await sleep(200)
+   const result = count / 4
+   log(2, ` - 本爻为：${result}`)
+   return result
 }
 
 async function standardCalculationStep(

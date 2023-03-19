@@ -19,10 +19,10 @@ const App = () => {
 
    const [gua, setGua] = useState([])
    const [ignoreInput, setIgnoreInput] = useState(false)
-   const [message, setMessage] = useState('')
+   const [messages, setMessages] = useState([])
 
-   const appendMessage = newMessage => {
-      setMessage(message + newMessage)
+   const appendMessage = (indent, text) => {
+      setMessages(messages.concat([{ indent, text }]))
    }
 
    const startCalculation = () => {
@@ -158,7 +158,7 @@ const App = () => {
          </div>
          <div className="medium-container">
             {
-               !message &&
+               messages.length === 0 &&
                <div className="medium-container-inner">
                   <PushButton text="啟動"
                               style={{ width: 64, fontSize: 18 }}
@@ -167,12 +167,11 @@ const App = () => {
                </div>
             }
             {
-               message &&
+               messages.length !== 0 &&
                <div className="medium-container-content">{
-                  message.split('\n')
-                     .map((line, idx) => (
-                        <div key={`message-${idx}`}>{line}</div>
-                     ))
+                  messages.map((msg, idx) => (
+                     <div key={`message-${idx}`}>{msg.text}</div>
+                  ))
                }</div>
             }
          </div>
