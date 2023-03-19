@@ -2,8 +2,8 @@ import React from 'react'
 
 import './ToggleButton.css'
 
-export const ToggleButton = ({ text, initStatus, disabled, title, onToggled }) => {
-   const status = initStatus || false
+export const ToggleButton = ({ text, state, disabled, title, onToggled }) => {
+   const status = state || false
 
    let className = 'toggle-button'
    if (disabled) {
@@ -15,8 +15,12 @@ export const ToggleButton = ({ text, initStatus, disabled, title, onToggled }) =
 
    return (
       <div className={className} title={title}>
-         <div className="toggle-button-switch">
-            <div />
+         <div className="toggle-button-switch" onClick={() => {
+            if (!disabled && onToggled) {
+               onToggled()
+            }
+         }}>
+            <div onClick={onToggled}/>
          </div>
          <div className="toggle-button-text">{text}</div>
       </div>

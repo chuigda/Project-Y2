@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { Gua } from './components/Gua'
 import { ToggleButton } from './components/ToggleButton'
+import { PushButton } from './components/PushButton'
 
 import './index.css'
-import {PushButton} from "./components/PushButton";
 
 const App = () => {
+   const [mode, setMode] = useState(1)
+   const [algorithm, setAlgorithm] = useState(1)
+
    return (
       <div className="main-container">
          <div className="event-input">
@@ -19,32 +22,48 @@ const App = () => {
                <div>
                   <span>起卦方式</span>
                   <ToggleButton text="大衍筮法"
-                                initStatus={true}
+                                state={mode === 1}
+                                onToggled={() => { setMode(1) }}
                                 title="模擬周易最傳統的使用蓍草的起卦方式"
                   />
                   <ToggleButton text="金錢卦"
+                                state={mode === 2}
+                                onToggled={() => { setMode(2) }}
                                 title="使用銅錢替代蓍草的簡化起卦方法，陰陽概率是完全均等的"
                   />
                   <ToggleButton text="金錢卦（模擬）"
+                                state={mode === 3}
+                                onToggled={() => { setMode(3) }}
                                 title="概率上同金錢卦，但是使用更簡單的隨機數模擬"
                   />
                </div>
-               <div id="mode1-line1">
-                  <span>大衍筮法</span>
-                  <ToggleButton text="朱子算法"
-                                initStatus={true}
-                                title="朱熹紀錄的揲蓍方法，每一變都要掛一"
-                  />
-                  <ToggleButton text="郭雍算法"
-                                title="郭雍紀錄的揲蓍方法，只有第一變掛一"
-                  />
-                  <ToggleButton text="48 策算法"
-                                title="以48策而不是49策開始揲蓍，並且每一遍都掛一。該方法的概率分布更平均且與史料記載更符合"
-                  />
-               </div>
-               <div id="mode1-line2">
-                  <span>分二誤差</span>
-               </div>
+               {
+                  mode === 1 &&
+                  <div>
+                     <span>大衍筮法</span>
+                     <ToggleButton text="朱子算法"
+                                   state={algorithm === 1}
+                                   onToggled={() => { setAlgorithm(1) }}
+                                   title="朱熹紀錄的揲蓍方法，每一變都要掛一"
+                     />
+                     <ToggleButton text="郭雍算法"
+                                   state={algorithm === 2}
+                                   onToggled={() => { setAlgorithm(2) }}
+                                   title="郭雍紀錄的揲蓍方法，只有第一變掛一"
+                     />
+                     <ToggleButton text="48 策算法"
+                                   state={algorithm === 3}
+                                   onToggled={() => { setAlgorithm(3) }}
+                                   title="以48策而不是49策開始揲蓍，並且每一遍都掛一。該方法的概率分布更平均且與史料記載更符合"
+                     />
+                  </div>
+               }
+               {
+                  mode === 1 &&
+                  <div style={{ display: mode === 1 ? 'flex' : 'none' }}>
+                     <span>分二誤差</span>
+                  </div>
+               }
                <div>
                   <span>程式輸出</span>
                   <ToggleButton text="周易"

@@ -9,7 +9,16 @@ export const PushButton = ({ text, id, disabled, title, onClick, style }) => {
    }
 
    return (
-      <div className={className} id={id} title={title} onClick={onClick} style={style}>
+      <div className={className}
+           id={id}
+           title={title}
+           onClick={() => {
+              if (!disabled && onClick) {
+                 onClick()
+              }
+           }}
+           style={style}
+      >
          {text}
       </div>
    )
