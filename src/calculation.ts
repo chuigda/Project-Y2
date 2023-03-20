@@ -94,3 +94,46 @@ async function standardCalculationStep(
    log(4, `揲四歸奇，得 ${rest}`)
    return rest
 }
+
+export async function coinCalculation(
+   setOutput: (output: number[]) => void,
+   log: (indent: number, message: string) => void
+) {
+   log(0, '正在使用金錢卦起卦')
+   await sleep(150)
+
+   const arr = []
+   for (let i = 0; i < 6; i++) {
+      log(0, `正在計算第 ${i + 1} 爻`)
+      const [c1, c2, c3] = [randInt(0, 1), randInt(0, 1), randInt(0, 1)]
+      const sides = ['反', '正']
+      log(2, `擲銅板，得：${sides[c1]}、${sides[c2]}、${sides[c3]}`)
+      
+      const result = [6, 8, 7, 9][c1 + c2 + c3]
+      log(2, `本爻為：${result}`)
+      arr.push(result)
+      setOutput([...arr])
+      await sleep(250)
+   }
+}
+
+export async function coinCalculationSimple(
+   setOutput: (output: number[]) => void,
+   log: (indent: number, message: string) => void
+) {
+   log(0, '正在使用簡化金錢卦起卦')
+   await sleep(150)
+
+   const arr = []
+   for (let i = 0; i < 6; i++) {
+      log(0, `正在計算第 ${i + 1} 爻`)
+      const value = randInt(0, 7)
+      log(2, `隨機數發生器輸出：${value}`)
+      
+      const result = [6, 8, 8, 8, 7, 7, 7, 9][value]
+      log(2, `本爻為：${result}`)
+      arr.push(result)
+      setOutput([...arr])
+      await sleep(250)
+   }
+}

@@ -15,9 +15,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
 
-    "jsx": "react",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "h"
+    "jsx": "react"
   },
   "include": ["src"]
 }

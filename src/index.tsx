@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { Gua } from './components/Gua'
 import { ToggleButton } from './components/ToggleButton'
 import { PushButton } from './components/PushButton'
-import { standardCalculation } from './calculation'
+import { coinCalculation, coinCalculationSimple, standardCalculation } from './calculation'
 import { cnNumber } from './util/cn-name'
 import data from './data/data'
 
@@ -23,7 +23,7 @@ const App = () => {
    const [ignoreInput, setIgnoreInput] = useState(false)
    const [messages, setMessages] = useState([])
 
-   const appendMessage = (indent, text) => {
+   const appendMessage = (indent: number, text: string) => {
       setMessages(messages => [...messages, { indent, text }])
    }
 
@@ -131,6 +131,10 @@ const App = () => {
       setIgnoreInput(true)
       if (mode === 1) {
          standardCalculation(algorithm, div2Err, setGua, appendMessage).then(() => {})
+      } else if (mode === 2) {
+         coinCalculation(setGua, appendMessage).then(() => {})
+      } else {
+         coinCalculationSimple(setGua, appendMessage).then(() => {})
       }
    }
 
@@ -139,7 +143,8 @@ const App = () => {
          <div className="event-input">
             <input placeholder="在這裏寫需要測定的事件"
                    value={title}
-                     onChange={e => setTitle(e.target.value)}
+                   onChange={e => setTitle(e.target.value)}
+                   readOnly={ignoreInput}
             />
          </div>
          <div className="upper-container">
@@ -153,14 +158,12 @@ const App = () => {
                                 title="模擬周易最傳統的使用蓍草的起卦方式"
                   />
                   <ToggleButton text="金錢卦"
-                                disabled={true}
                                 state={mode === 2}
                                 onToggled={() => { !ignoreInput && setMode(2) }}
                                 title="使用銅錢替代蓍草的簡化起卦方法，陰陽概率是完全均等的"
                   />
                   <ToggleButton text="金錢卦（模擬）"
                                 state={mode === 3}
-                                disabled={true}
                                 onToggled={() => { !ignoreInput && setMode(3) }}
                                 title="概率上同金錢卦，但是使用更簡單的隨機數模擬"
                   />
