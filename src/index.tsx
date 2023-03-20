@@ -115,7 +115,7 @@ const App = () => {
                originalGua !== mutatedGua && mutatedGua['易'].mutations.length > 6 &&
                <>
                   <div className="mutated">{ mutatedGua['易'].mutations[6] }</div>
-                  { xiang && <div className="indented">{ `象曰：${mutatedGua['象'].mutations[6]}` }</div> }
+                  { xiang && <div className="indented mutated">{ `象曰：${mutatedGua['象'].mutations[6]}` }</div> }
                </>
             }
          </div>
