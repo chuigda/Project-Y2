@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
-import react from '@vitejs/plugin-react'
+import preact from '@preact/preset-vite'
 
 export default defineConfig({
    base: '',
-   plugins: [react(), viteSingleFile()],
+   plugins: [preact(), viteSingleFile()],
    build: {
       target: 'es2018',
       cssCodeSplit: false,

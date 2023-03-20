@@ -9,14 +9,16 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
+    "source-map-explorer": "^2.5.3",
     "typescript": "^5.0.2",
     "vite": "^4.2.0",
     "vite-plugin-singlefile": "^0.13.3"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "preact": "^10.13.1",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
   }
 }
